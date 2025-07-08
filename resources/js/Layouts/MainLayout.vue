@@ -1,19 +1,40 @@
 <template>
-    <div>
-        <!-- TODO - add this to navbar-->
-        <header class="bg-gray-800 text-white p-4 flex justify-between">
-            <h1 class="text-lg">Countries Explorer</h1>
-            <nav>
-                <Link href="/countries/table" class="mr-4">Table View</Link>
-                <Link href="/countries/cards">Card View</Link>
-            </nav>
+    <div class="min-h-screen bg-gray-50 text-gray-900">
+        <header class="bg-white shadow sticky top-0 z-50">
+            <div
+                class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
+            >
+                <h1 class="text-xl font-bold text-indigo-600">
+                    🌍 Countries Explorer
+                </h1>
+
+                <NavBar />
+            </div>
         </header>
-        <main class="p-6">
+
+        <main class="max-w-7xl mx-auto px-6 py-8 animate-fade-in">
             <slot />
         </main>
     </div>
 </template>
 
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import NavBar from "../Shared/NavBar.vue";
 </script>
+
+<style scoped>
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.4s ease-out;
+}
+</style>
