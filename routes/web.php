@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\CountryController;
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-});
+Route::redirect('/', '/countries/table');
+
+Route::get('/countries/table', [CountryController::class, 'table']);
+
+Route::get('/countries/cards', [CountryController::class, 'cards']);
