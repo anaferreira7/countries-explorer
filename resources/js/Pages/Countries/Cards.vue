@@ -5,7 +5,7 @@
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
     >
         <div
-            v-for="country in props.countries"
+            v-for="country in visibleCountries"
             :key="country.name.common"
             class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center transition-transform duration-200 hover:scale-105"
         >
@@ -30,16 +30,84 @@
         </div>
     </div>
 
+    <div v-if="isLoading" class="text-center text-gray-500 mt-8">
+        Loading countries...
+    </div>
     <div
-        v-if="props.countries.length === 0"
+        v-else-if="props.countries.length === 0"
         class="text-center text-gray-500 mt-8"
     >
         No countries to display.
     </div>
+
+    <div ref="loadMoreSentinel" class="h-1 bg-transparent"></div>
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted, computed } from "vue";
+
 const props = defineProps({
     countries: Array,
+});
+
+const visibleCountries = ref([]);
+const itemsPerLoad = 20;
+const loadedCount = ref(0);
+const isLoading = ref(false);
+const loadMoreSentinel = ref(null);
+let observer = null;
+
+const hasMoreCountries = computed(() => {
+    return loadedCount.value < props.countries.length;
+});
+
+onMounted(() => {
+    loadMore();
+
+    observer = new IntersectionObserver(
+        (entries) => {
+            const [entry] = entries;
+            if (
+                entry.isIntersecting &&
+                !isLoading.value &&
+                hasMoreCountries.value
+            ) {
+                loadMore();
+            }
+        },
+        {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.1,
+        }
+    );
+
+    if (loadMoreSentinel.value) {
+        observer.observe(loadMoreSentinel.value);
+    }
+});
+
+const loadMore = () => {
+    if (isLoading.value || !hasMoreCountries.value) {
+        return;
+    }
+
+    isLoading.value = true;
+
+    setTimeout(() => {
+        const nextBatch = props.countries.slice(
+            loadedCount.value,
+            loadedCount.value + itemsPerLoad
+        );
+        visibleCountries.value.push(...nextBatch);
+        loadedCount.value += nextBatch.length;
+        isLoading.value = false;
+    }, 500);
+};
+
+onUnmounted(() => {
+    if (observer) {
+        observer.disconnect();
+    }
 });
 </script>
