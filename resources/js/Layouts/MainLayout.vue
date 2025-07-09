@@ -12,7 +12,7 @@
             </div>
         </header>
 
-        <main class="max-w-7xl mx-auto px-6 py-8 animate-fade-in">
+        <main class="max-w-7xl mx-auto px-6 py-8">
             <slot />
         </main>
     </div>
@@ -21,20 +21,3 @@
 <script setup>
 import NavBar from "../Shared/NavBar.vue";
 </script>
-
-<style scoped>
-@keyframes fade-in {
-    0% {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-fade-in {
-    animation: fade-in 0.4s ease-out;
-}
-</style>

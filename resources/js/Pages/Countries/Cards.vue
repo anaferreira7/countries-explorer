@@ -20,7 +20,8 @@
             </h3>
 
             <p class="text-gray-600 text-sm mb-1">
-                <span class="font-semibold">Region:</span> {{ country.region }}
+                <span class="font-semibold">Region:</span>
+                {{ country.region }}
             </p>
 
             <p class="text-gray-600 text-sm">
