@@ -1,13 +1,17 @@
 <template>
-    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Countries Table</h2>
+    <div class="flex justify-between">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-6">
+            Countries Table
+        </h2>
 
-    <div class="mb-6">
-        <input
-            type="text"
-            v-model="searchQuery"
-            placeholder="Search countries by name..."
-            class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        />
+        <div class="mb-6">
+            <input
+                type="text"
+                v-model="searchQuery"
+                placeholder="Search countries by name..."
+                class="w-96 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+        </div>
     </div>
 
     <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
