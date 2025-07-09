@@ -115,7 +115,14 @@ composer install
 npm install
 ```
 
-### 4. Run development servers
+### 4. Set up environment variables
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 5. Run development servers
 
 ```bash
 php artisan serve
